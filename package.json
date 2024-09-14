@@ -1,0 +1,48 @@
+{
+  "name": "react-r2",
+  "version": "1.0.0",
+  "description": "This is Namaste React by Akshay Saini",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
+    "test": "jest",
+    "watch-test": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RiyazR2/ReactJs-R2.git"
+  },
+  "keywords": [],
+  "author": "Riyaz Pathan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RiyazR2/ReactJs-R2/issues"
+  },
+  "homepage": "https://github.com/RiyazR2/ReactJs-R2#readme",
+  "devDependencies": {
+    "@babel/core": "^7.24.3",
+    "@babel/preset-env": "^7.24.3",
+    "@babel/preset-react": "^7.24.1",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.2",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "parcel": "^2.10.3",
+    "parcel-bundler": "^1.12.5",
+    "postcss": "^8.4.35",
+    "process": "^0.11.10",
+    "tailwindcss": "^3.4.1"
+  },
+  "dependencies": {
+    "@emailjs/browser": "^4.3.3",
+    "@reduxjs/toolkit": "^2.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^9.1.0",
+    "react-router-dom": "^6.22.0"
+  },
+  "browsersList": [
+    "last 2 versions"
+  ]
+}

@@ -1,0 +1,126 @@
+{
+    "groceries": [
+        {
+            "id": 1,
+            "name": "Apple",
+            "price": 120,
+            "image": "https://w0.peakpx.com/wallpaper/182/615/HD-wallpaper-fruits-apple-fruit.jpg"
+        },
+        {
+            "id": 2,
+            "name": "Banana",
+            "price": 60,
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP1Ez2BTrzezT7WAjxcse_jXOC5Mu6OeWTLTGuIdrSuA&s"
+        },
+        {
+            "id": 3,
+            "name": "Orange",
+            "price": 150,
+            "image": "https://tse1.mm.bing.net/th?id=OIP.BPBH-RGp4d3V3gAJSj8SHwHaFP&pid=Api&P=0&h=180"
+        },
+        {
+            "id": 4,
+            "name": "Mango",
+            "price": 80,
+            "image": "https://tse2.mm.bing.net/th?id=OIP.UvgikPYp6_cZ0OhJv2SGWAHaEK&pid=Api&P=0&h=180"
+        },
+        {
+            "id": 5,
+            "name": "Grapes",
+            "price": 200,
+            "image": "https://tse4.mm.bing.net/th?id=OIP.KMVbmLXIld44P3hra9zttQHaDt&pid=Api&P=0&h=180"
+        },
+        {
+            "id": 6,
+            "name": "Watermelon",
+            "price": 100,
+            "image": "https://tse4.mm.bing.net/th?id=OIP.5YaYijK1aY6CJYOeiLitHwHaFB&pid=Api&P=0&h=180"
+        },
+        {
+            "id": 7,
+            "name": "Pineapple",
+            "price": 180,
+            "image": "https://tse3.mm.bing.net/th?id=OIP.TDdWDHu58sCsbhQ1ManhJAHaFj&pid=Api&P=0&h=180"
+        },
+        {
+            "id": 8,
+            "name": "Strawberry",
+            "price": 250,
+            "image": "https://tse3.mm.bing.net/th?id=OIP.F_6wYbfILbkVnMuM8uv0TAHaE8&pid=Api&P=0&h=180"
+        },
+        {
+            "id": 9,
+            "name": "Kiwi",
+            "price": 90,
+            "image": "https://tse1.explicit.bing.net/th?id=OIP.jTr6fbOCWu0NZp3s0qD3ZgHaEo&pid=Api&P=0&h=180"
+        },
+        {
+            "id": 10,
+            "name": "Papaya",
+            "price": 70,
+            "image": "https://tse2.mm.bing.net/th?id=OIP.1bZ-K3P3V882nayFr7R4QQHaFj&pid=Api&P=0&h=180"
+        }
+    ],
+    "vegetables": [
+        {
+            "id": 1,
+            "name": "Tomato",
+            "price": 40,
+            "image": "https://tse1.mm.bing.net/th?id=OIP.5QIl6JA5XjsJYXkG5EH7mgHaE8&pid=Api&P=0&h=180"
+        },
+        {
+            "id": 2,
+            "name": "Potato",
+            "price": 25,
+            "image": "https://tse3.explicit.bing.net/th?id=OIP.b_rtyCChrOSnSHKlUv7hrQHaFj&pid=Api&P=0&h=180"
+        },
+        {
+            "id": 3,
+            "name": "Onion",
+            "price": 30,
+            "image": "https://tse1.mm.bing.net/th?id=OIP.oxgjuB604oN7vQQRDumIAgHaE8&pid=Api&P=0&h=180"
+        },
+        {
+            "id": 4,
+            "name": "Carrot",
+            "price": 35,
+            "image": "https://tse4.mm.bing.net/th?id=OIP.P6Z9gwQ3iCTWLfFwyt-NlwHaEo&pid=Api&P=0&h=180"
+        },
+        {
+            "id": 5,
+            "name": "Cucumber",
+            "price": 20,
+            "image": "https://tse1.mm.bing.net/th?id=OIP.tKQ3N9tqqJQvq7JaiJ8O9QHaEd&pid=Api&P=0&h=180"
+        },
+        {
+            "id": 6,
+            "name": "Capsicum",
+            "price": 50,
+            "image": "https://tse1.mm.bing.net/th?id=OIP.r6IPHv0c7x-xYb8ekoOulwHaFj&pid=Api&P=0&h=180"
+        },
+        {
+            "id": 7,
+            "name": "Spinach",
+            "price": 15,
+            "image": "https://tse2.mm.bing.net/th?id=OIP.040MMbJbiGxRxXlOLz8MHAHaHa&pid=Api&P=0&h=180"
+        },
+        {
+            "id": 8,
+            "name": "Brinjal",
+            "price": 30,
+            "image": "https://tse2.mm.bing.net/th?id=OIP.OM0bWCCcDqDlOcIzozTkCgHaEw&pid=Api&P=0&h=180"
+        },
+        {
+            "id": 9,
+            "name": "Radish",
+            "price": 25,
+            "image": "https://tse4.mm.bing.net/th?id=OIP.FWwtZ10EJMZ0nvVFR9WUbAHaH9&pid=Api&P=0&h=180"
+        },
+        {
+            "id": 10,
+            "name": "Lettuce",
+            "price": 40,
+            "image": "https://tse3.mm.bing.net/th?id=OIP.G6WatSw7ekPHAgHnCgqkCgHaEh&pid=Api&P=0&h=180"
+        }
+    ]
+}
