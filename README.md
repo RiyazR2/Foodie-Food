@@ -64,46 +64,52 @@ This project is built using modern web technologies such as ReactJS, Tailwind CS
 
    The app will be available at http://localhost:1234 in your web browser.
 
-   Usage
-   After starting the development server:
+## Usage
 
-Search for Recipes: Use the search bar to type keywords like "pasta" or "chicken" to find related recipes.
-View Recipe Details: Click on a recipe to view its ingredients, cooking instructions, and other details.
-Save Favorites: Save recipes by clicking the "Save to Favorites" button to access them later.
-Folder Structure
-/public: Contains static files, including index.html, which is the main entry point for the app.
-/src: The main source code for the application, including:
-components/: Reusable React components such as Header, RecipeCard, and Footer.
-pages/: Different page components, including the main search and recipe detail pages.
-assets/: Images, icons, and other static resources.
-App.js: Main component that ties the different parts of the application together.
-index.js: Entry point to render the app.
-API Reference
-Foodie Food uses an external recipe API to gather recipe information. Below is a brief overview of how the API is used:
+After starting the development server:
 
-Search Endpoint: The application sends a GET request to the API with a query parameter to retrieve matching recipes.
-Recipe Details: Recipe details, including ingredients and cooking steps, are fetched based on a unique recipe ID.
-For API setup, ensure you have obtained an API key and configured it properly within the codebase. Replace placeholders in the src/api/config.js file with your actual API key.
+- Search for Recipes: Use the search bar to type keywords like "pasta" or "chicken" to find related recipes.
+- View Recipe Details: Click on a recipe to view its ingredients, cooking instructions, and other details.
 
-Contributing
+- Folder Structure
+  - /public: Contains static files, including index.html, which is the main entry point for the app.
+  - /src: The main source code for the application, including:
+  - components/: Reusable React components such as Header, RecipeCard, and Footer.
+  - pages/: Different page components, including the main search and recipe detail pages.
+  - assets/: Images, icons, and other static resources.
+  - App.js: Main component that ties the different parts of the application together.
+  - index.js: Entry point to render the app.
+- API Reference
+  Foodie Food uses an external recipe API to gather recipe information. Below is a brief overview of how the API is used:
+
+- Search Endpoint: The application sends a GET request to the API with a query parameter to retrieve matching recipes.
+- Recipe Details: Recipe details, including ingredients and cooking steps, are fetched based on a unique recipe ID.
+- For API setup, ensure you have obtained an API key and configured it properly within the codebase. Replace placeholders in the src/api/config.js file with your actual API key.
+
+# Contributing
+
 We welcome contributions to enhance Foodie Food! To contribute:
 
-Fork the repository.
-Create a new branch (git checkout -b feature-name).
-Make changes and commit (git commit -m 'Add new feature').
-Push the branch (git push origin feature-name).
-Create a Pull Request on GitHub.
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
+# Fork the repository.
 
-Contact
+- Create a new branch (git checkout -b feature-name).
+- Make changes and commit (git commit -m 'Add new feature').
+- Push the branch (git push origin feature-name).
+- Create a Pull Request on GitHub.
+- License
+  This project is licensed under the MIT License. See the LICENSE file for details.
+
+# Contact
+
 If you have any questions or suggestions, feel free to reach out!
 
-GitHub: RiyazR2
-Live Demo: Foodie Food
+## GitHub: RiyazR2
+
+[Live Demo](https://foodiefinderr2.netlify.app/): Foodie Food
+
 Thank you for checking out Foodie Food! Your feedback is greatly appreciated, and happy cooking!
 
-### Explanation:
+<!-- ### Explanation:
 
 - **Overview**: Provides a clear summary of what the project is.
 - **Features**: Lists all the functionalities for users to understand what the app offers.
@@ -113,4 +119,4 @@ Thank you for checking out Foodie Food! Your feedback is greatly appreciated, an
 - **API Reference**: A brief explanation of how API integration works and where to configure it.
 - **Contributing, License, Contact**: Encourages community involvement and provides necessary legal and contact information.
 
-This README will help anyone understand your project and contribute to it effectively.
+This README will help anyone understand your project and contribute to it effectively. -->
