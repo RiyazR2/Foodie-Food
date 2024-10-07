@@ -5,7 +5,7 @@ const Grocery = () => {
   const { groceries, vegetables } = mockGroceryData;
 
   return (
-    <div className="container mx-auto px-4 py-8 bg-gray-100">
+    <div className="container max-w-fit mt-10 px-4 py-8 bg-gray-100">
       <header className="mb-8">
         <h1 className="text-4xl font-bold text-center text-green-600">
           Grocery Store
