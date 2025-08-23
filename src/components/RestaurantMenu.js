@@ -12,7 +12,7 @@ const RestaurantMenu = () => {
   // console.log("restaurantInfo", restaurantInfo); // ! don't delete this, this is for reference
 
   //for RestaurantCategory to do Expand or Collapse
-  const [showIndex, setShowIndex] = useState(0);
+  const [showIndex, setShowIndex] = useState(1);
 
   if (restaurantInfo === null) return <RestaurantInfoShimmer />;
 
@@ -38,7 +38,7 @@ const RestaurantMenu = () => {
       {categories?.map((category, index) => (
         //Controlled Component
         <RestaurantCategory
-          key={index}
+          key={category?.card?.card.title}
           categoryData={category?.card?.card}
           showItems={index === showIndex ? true : false}
           setShowIndex={() => setShowIndex(index)} // Passing setShowIndex to my Children, I will pass a function and this function basically setShowIndex of that particular index
