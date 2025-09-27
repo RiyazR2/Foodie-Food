@@ -2,8 +2,10 @@ import RestaurantCard, { withDiscountLabel } from "./RestaurantCard";
 import { useEffect, useState, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
-import { swiggyAPI } from "../utils/constants";
+import { getSwiggyAPI } from "../utils/constants";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { useLocation } from "../utils/LocationContext";
+import { RestaurantLoader, NoRestaurantsFound } from "./LocationLoader";
 // import UserContext from "../utils/UserContext";
 
 const Body = () => {
@@ -11,41 +13,69 @@ const Body = () => {
   // console.log("Body");
   const [listOfRestaurants, setListOfRestaurant] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
-
   const [searchText, setSearchText] = useState(""); //Search input
+  const [isLocationLoading, setIsLocationLoading] = useState(false);
 
   const RestaurantCardDiscount = withDiscountLabel(RestaurantCard);
+  const { currentLocation } = useLocation();
 
   // Whenever state variable update, react triggers a reconciliation cycle (re-renders the component)
   // console.log("Body Rendered\nList Of Restaurants: ", listOfRestaurants); //tempororay Commented down
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currentLocation]); // Re-fetch when location changes
 
   const fetchData = async () => {
-    const data = await fetch(swiggyAPI);
+    try {
+      setIsLocationLoading(true);
+      const swiggyAPI = getSwiggyAPI(currentLocation.lat, currentLocation.lng);
+      const data = await fetch(swiggyAPI);
 
-    const json = await data.json();
-    // console.log("SwigyyAPI: ", json);
+      if (!data.ok) {
+        throw new Error(`HTTP error! status: ${data.status}`);
+      }
 
-    // // ! Restaurants ==> restaurant_grid_listing
-    // setListOfRestaurant(
-    //   json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    // );
-    // setFilteredRestaurant(
-    //   json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    // );
+      const json = await data.json();
+      // console.log("SwigyyAPI: ", json);
 
-    // ! Restaurants ==> top_brands_for_you
-    // this is for Body Main Restaurant
-    setListOfRestaurant(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    // this is for Searched Restaurant
-    setFilteredRestaurant(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
+      // Try different possible paths for restaurant data
+      let restaurants = null;
+
+      // Try path 1: top_brands_for_you
+      if (json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants) {
+        restaurants = json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants;
+      }
+      // Try path 2: restaurant_grid_listing
+      else if (json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants) {
+        restaurants = json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants;
+      }
+      // Try path 3: search through all cards
+      else {
+        for (let i = 0; i < json?.data?.cards?.length; i++) {
+          const card = json.data.cards[i];
+          if (card?.card?.card?.gridElements?.infoWithStyle?.restaurants) {
+            restaurants = card.card.card.gridElements.infoWithStyle.restaurants;
+            break;
+          }
+        }
+      }
+
+      if (restaurants && restaurants.length > 0) {
+        setListOfRestaurant(restaurants);
+        setFilteredRestaurant(restaurants);
+      } else {
+        console.warn('No restaurants found in API response');
+        setListOfRestaurant([]);
+        setFilteredRestaurant([]);
+      }
+    } catch (error) {
+      console.error('Error fetching restaurant data:', error);
+      setListOfRestaurant([]);
+      setFilteredRestaurant([]);
+    } finally {
+      setIsLocationLoading(false);
+    }
   };
 
   const onlineStatus = useOnlineStatus();
@@ -59,7 +89,7 @@ const Body = () => {
   // Button Top Rated Restaurants
   const handleTopRated = () => {
     const filteredList = listOfRestaurants.filter(
-      (res) => res?.info?.avgRating > 4.5
+      (res) => res?.info?.avgRating > 4.4
     );
 
     // console.log(filteredList);
@@ -86,10 +116,28 @@ const Body = () => {
 
   // const { loggedInUser, setUserName } = useContext(UserContext);
 
-  return listOfRestaurants.length === 0 ? (
-    <Shimmer />
-  ) : (
+  // Show loading state if restaurants are being fetched
+  if (listOfRestaurants.length === 0 || isLocationLoading) {
+    return (
+      <div>
+        {isLocationLoading ? (
+          <RestaurantLoader locationName={currentLocation.name} />
+        ) : (
+          <Shimmer />
+        )}
+      </div>
+    );
+  }
+
+  return (
     <div className="body">
+      {/* Location Info */}
+      <div className="text-center py-2 bg-green-50 border-b">
+        <span className="text-sm text-green-700">
+          📍 Showing restaurants in <span className="font-semibold">{currentLocation.name}</span>
+        </span>
+      </div>
+
       <div className="filter flex">
         <div className="m-4 p-4">
           <input
@@ -117,20 +165,29 @@ const Body = () => {
           </button>
         </div>
       </div>
-      <div className="flex flex-wrap">
-        {filteredRestaurant.map((restaurant) => (
-          <Link
-            to={"/restaurants/" + restaurant.info.id}
-            key={restaurant.info.id}
-          >
-            {restaurant?.info?.aggregatedDiscountInfoV3?.header ? (
-              <RestaurantCardDiscount restData={restaurant} />
-            ) : (
-              <RestaurantCard restData={restaurant} />
-            )}
-          </Link>
-        ))}
-      </div>
+
+      {/* Restaurant Results */}
+      {filteredRestaurant.length === 0 ? (
+        <NoRestaurantsFound
+          locationName={currentLocation.name}
+          searchText={searchText}
+        />
+      ) : (
+        <div className="flex flex-wrap">
+          {filteredRestaurant.map((restaurant) => (
+            <Link
+              to={"/restaurants/" + restaurant.info.id}
+              key={restaurant.info.id}
+            >
+              {restaurant?.info?.aggregatedDiscountInfoV3?.header ? (
+                <RestaurantCardDiscount restData={restaurant} />
+              ) : (
+                <RestaurantCard restData={restaurant} />
+              )}
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -8,13 +8,25 @@ const RestaurantMenu = () => {
   const { resId } = useParams();
 
   // CUSTOM HOOK
-  const restaurantInfo = useRestaurantMenu(resId);
+  const { resInfo: restaurantInfo, isLoading, error } = useRestaurantMenu(resId);
   // console.log("restaurantInfo", restaurantInfo); // ! don't delete this, this is for reference
 
   //for RestaurantCategory to do Expand or Collapse
   const [showIndex, setShowIndex] = useState(1);
 
-  if (restaurantInfo === null) return <RestaurantInfoShimmer />;
+  if (isLoading || restaurantInfo === null) return <RestaurantInfoShimmer />;
+
+  if (error) {
+    return (
+      <div className="text-center py-10">
+        <div className="text-red-500">
+          <div className="text-4xl mb-4">❌</div>
+          <h3 className="text-lg font-semibold mb-2">Error Loading Menu</h3>
+          <p className="text-sm">{error}</p>
+        </div>
+      </div>
+    );
+  }
 
   const { name, cuisines, costForTwoMessage, avgRating } =
     restaurantInfo?.cards[2]?.card?.card?.info; // ! Always check the path [json / restaurantInfo]

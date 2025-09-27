@@ -1,25 +1,52 @@
 // this is CUSTOM HOOK this  HOOK Responsiblity is that
 // to fetch the data of the Restaurant and give it back to the RestaurantMenu.
 
-import { useEffect, useState } from "react";
-import { MENU_API } from "./constants";
+import { useEffect, useState, useContext } from "react";
+import { getMenuAPI } from "./constants";
+import { useLocation } from "./LocationContext";
+
 const useRestaurantMenu = (resId) => {
   const [resInfo, setResInfo] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { currentLocation } = useLocation();
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (resId && currentLocation) {
+      fetchData();
+    }
+  }, [resId, currentLocation]); // Re-fetch when location changes
 
   const fetchData = async () => {
-    const data = await fetch(MENU_API + resId);
+    try {
+      setIsLoading(true);
+      setError(null);
 
-    const json = await data.json();
-    // console.log("MenuAPI:", json);
+      const menuAPI = getMenuAPI(currentLocation.lat, currentLocation.lng);
+      const data = await fetch(menuAPI + resId);
 
-    setResInfo(json.data);
+      if (!data.ok) {
+        throw new Error(`HTTP error! status: ${data.status}`);
+      }
+
+      const json = await data.json();
+      // console.log("MenuAPI:", json);
+
+      if (json.data) {
+        setResInfo(json.data);
+      } else {
+        throw new Error('No menu data found');
+      }
+    } catch (err) {
+      console.error('Error fetching restaurant menu:', err);
+      setError(err.message);
+      setResInfo(null);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  return resInfo;
+  return { resInfo, isLoading, error };
 };
 
 export default useRestaurantMenu;

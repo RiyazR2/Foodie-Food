@@ -3,6 +3,7 @@ import logo from "../utils/logo.png";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import { useSelector } from "react-redux";
+import LocationSelector from "./LocationSelector";
 
 export const Header = () => {
   // const [btnNameReact, setBtnNameReact] = useState("Login");
@@ -14,77 +15,138 @@ export const Header = () => {
   // };
 
   return (
-    <header className="flex flex-col sm:flex-row   justify-between items-center bg-gradient-to-r from-green-100 to-green-200 shadow-lg p-4">
-      <div className="logo-container mb-2 sm:mb-0">
-        <Link to="/">
-          <img
-            className="w-24 sm:w-36 rounded-lg hover:opacity-90 transition-opacity duration-200"
-            src={logo}
-            alt="Logo"
-          />
-        </Link>
-      </div>
-      <nav className="flex flex-wrap items-center">
-        <ul className="flex flex-wrap  gap-4 text-xs sm:text-sm md:text-lg font-bold">
-          <li>
-            <Link
-              className="px-2 sm:px-4 hover:text-green-600 transition-colors duration-200"
-              to="/"
-            >
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="px-2 sm:px-4 hover:text-green-600 transition-colors duration-200"
-              to="/grocery"
-            >
-              Grocery
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="px-2 sm:px-4 hover:text-green-600 transition-colors duration-200"
-              to="/about"
-            >
-              About
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="px-2 sm:px-4 hover:text-green-600 transition-colors duration-200"
-              to="/contact"
-            >
-              Contact
-            </Link>
-          </li>
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-green-100 shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 lg:h-20">
 
-          <li>
-            <Link
-              className="px-2 sm:px-4 hover:text-green-600 transition-colors duration-200"
-              to="/cart"
-            >
-              Cart - ({cartItems.length}) 🛒
+          {/* Logo Section */}
+          <div className="flex-shrink-0">
+            <Link to="/" className="flex items-center space-x-2">
+              <img
+                className="h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 rounded-xl hover:scale-105 transition-transform duration-200 shadow-md"
+                src={logo}
+                alt="Foodie Food Logo"
+              />
+              <div className="hidden sm:block">
+                <h1 className="text-xl lg:text-2xl font-bold bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
+                  Foodie Food
+                </h1>
+                <p className="text-xs text-gray-500 -mt-1">Delicious delivered</p>
+              </div>
             </Link>
-          </li>
-          {/* <li>
-            <button
-              className="px-2 sm:px-4 font-bold hover:text-green-600 transition-colors duration-200"
-              onClick={log}
+          </div>
+
+          {/* Location Selector - Desktop */}
+          <div className="hidden md:flex flex-1 justify-center max-w-xs mx-8">
+            <LocationSelector />
+          </div>
+
+          {/* Navigation Menu - Desktop */}
+          <nav className="hidden md:flex items-center space-x-1">
+            <Link
+              to="/"
+              className="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 transition-all duration-200"
             >
-              {btnNameReact}
-            </button>
-          </li> */}
-          <li className="px-2 sm:px-4">
-            Status:{" "}
-            {onlineStatus ? (
-              <span className="text-green-600">🟢</span>
-            ) : (
-              <span className="text-red-600">🔴</span>
-            )}
-          </li>
-        </ul>
-      </nav>
+              🏠 Home
+            </Link>
+            <Link
+              to="/grocery"
+              className="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 transition-all duration-200"
+            >
+              🛒 Grocery
+            </Link>
+            <Link
+              to="/about"
+              className="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 transition-all duration-200"
+            >
+              ℹ️ About
+            </Link>
+            <Link
+              to="/contact"
+              className="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 transition-all duration-200"
+            >
+              📞 Contact
+            </Link>
+
+            {/* Cart with Badge */}
+            <Link
+              to="/cart"
+              className="relative px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 transition-all duration-200 flex items-center space-x-1"
+            >
+              <span>🛒 Cart</span>
+              {cartItems.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                  {cartItems.length}
+                </span>
+              )}
+            </Link>
+
+            {/* Status Indicator */}
+            <div className="flex items-center space-x-2 px-3 py-2">
+              <div className="flex items-center space-x-1">
+                <div className={`w-2 h-2 rounded-full ${onlineStatus ? 'bg-green-500' : 'bg-red-500'} animate-pulse`}></div>
+                <span className="text-xs text-gray-500">
+                  {onlineStatus ? 'Online' : 'Offline'}
+                </span>
+              </div>
+            </div>
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center space-x-2">
+            {/* Mobile Cart */}
+            <Link
+              to="/cart"
+              className="relative p-2 rounded-lg text-gray-700 hover:text-green-600 hover:bg-green-50 transition-all duration-200"
+            >
+              <span className="text-lg">🛒</span>
+              {cartItems.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center font-bold">
+                  {cartItems.length}
+                </span>
+              )}
+            </Link>
+
+            {/* Mobile Status */}
+            <div className={`w-2 h-2 rounded-full ${onlineStatus ? 'bg-green-500' : 'bg-red-500'} animate-pulse`}></div>
+          </div>
+        </div>
+
+        {/* Mobile Location Selector */}
+        <div className="md:hidden pb-4 pt-2 border-t border-gray-100">
+          <LocationSelector />
+        </div>
+
+        {/* Mobile Navigation */}
+        <div className="md:hidden pb-4">
+          <nav className="flex flex-wrap justify-center gap-2">
+            <Link
+              to="/"
+              className="px-3 py-1.5 rounded-full text-xs font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 transition-all duration-200 bg-gray-50"
+            >
+              🏠 Home
+            </Link>
+            <Link
+              to="/grocery"
+              className="px-3 py-1.5 rounded-full text-xs font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 transition-all duration-200 bg-gray-50"
+            >
+              🛒 Grocery
+            </Link>
+            <Link
+              to="/about"
+              className="px-3 py-1.5 rounded-full text-xs font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 transition-all duration-200 bg-gray-50"
+            >
+              ℹ️ About
+            </Link>
+            <Link
+              to="/contact"
+              className="px-3 py-1.5 rounded-full text-xs font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 transition-all duration-200 bg-gray-50"
+            >
+              📞 Contact
+            </Link>
+          </nav>
+        </div>
+      </div>
     </header>
   );
 };

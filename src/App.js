@@ -14,6 +14,7 @@ import Login from "./components/Login";
 import SignInPage from "./components/SignInPage";
 import Footer from "./components/Footer";
 import PaymentDone from "./components/PaymentDone";
+import { LocationProvider } from "./utils/LocationContext";
 
 const Grocery = lazy(() => import("./components/Grocery"));
 const About = lazy(() => import("./components/About"));
@@ -33,13 +34,15 @@ const AppLayout = () => {
 
   return (
     <Provider store={appStore}>
-      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
-        <div className="app">
-          <Header />
-          <Outlet />
-          <Footer />
-        </div>
-      </UserContext.Provider>
+      <LocationProvider>
+        <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+          <div className="app">
+            <Header />
+            <Outlet />
+            <Footer />
+          </div>
+        </UserContext.Provider>
+      </LocationProvider>
     </Provider>
   );
 };

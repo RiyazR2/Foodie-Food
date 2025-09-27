@@ -108,15 +108,3 @@ If you have any questions or suggestions, feel free to reach out!
 [Live Demo](https://foodiefinderr2.netlify.app/): Foodie Food
 
 Thank you for checking out Foodie Food! Your feedback is greatly appreciated, and happy cooking!
-
-<!-- ### Explanation:
-
-- **Overview**: Provides a clear summary of what the project is.
-- **Features**: Lists all the functionalities for users to understand what the app offers.
-- **Tech Stack**: Details the tools and technologies used, making it easy for others to understand the technical aspects.
-- **Installation & Usage**: Step-by-step guide for beginners on how to set up and use the project.
-- **Folder Structure**: Helps new contributors navigate the codebase.
-- **API Reference**: A brief explanation of how API integration works and where to configure it.
-- **Contributing, License, Contact**: Encourages community involvement and provides necessary legal and contact information.
-
-This README will help anyone understand your project and contribute to it effectively. -->
