@@ -7,7 +7,6 @@ const RestaurantInsights = ({ restaurant, onClose }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch insights on mount
   useEffect(() => {
     const fetchInsights = async () => {
       setLoading(true);
@@ -25,14 +24,12 @@ const RestaurantInsights = ({ restaurant, onClose }) => {
     fetchInsights();
   }, [restaurant]);
 
-  // Close on ESC key
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") onClose();
     };
 
     document.addEventListener("keydown", handleEscape);
-    // Prevent body scroll when modal is open
     document.body.style.overflow = "hidden";
 
     return () => {
@@ -41,7 +38,6 @@ const RestaurantInsights = ({ restaurant, onClose }) => {
     };
   }, [onClose]);
 
-  // Render modal at document.body level using Portal (Netflix style!)
   return createPortal(
     <div
       className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-[9999] p-4 animate-fade-in"
@@ -51,7 +47,6 @@ const RestaurantInsights = ({ restaurant, onClose }) => {
         className="glass-card rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl animate-float-up"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header - NetflixGPT Style */}
         <div className="sticky top-0 bg-gradient-to-r from-orange-600 to-orange-500 px-6 py-5 border-b-4 border-orange-700 rounded-t-3xl shadow-lg">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">

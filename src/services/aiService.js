@@ -1,16 +1,10 @@
 import Groq from "groq-sdk";
 
-// Initialize Groq client
 const groq = new Groq({
   apiKey: process.env.REACT_APP_GROQ_API_KEY,
-  dangerouslyAllowBrowser: true, // Required for frontend usage
+  dangerouslyAllowBrowser: true,
 });
 
-/**
- * Generate AI-powered restaurant insights
- * @param {Object} restaurant - Restaurant data from Swiggy API
- * @returns {Promise<Object>} AI-generated insights
- */
 export const generateRestaurantInsights = async (restaurant) => {
   try {
     const prompt = `Analyze this restaurant and provide insights:
@@ -60,11 +54,6 @@ Generate structured insights in JSON format with these fields:
   }
 };
 
-/**
- * Parse natural language search query
- * @param {string} query - User's natural language query
- * @returns {Promise<Object>} Structured filters
- */
 export const parseSearchQuery = async (query) => {
   try {
     const prompt = `You are a restaurant search query parser. Extract filters from natural language.
@@ -125,11 +114,6 @@ Return ONLY the JSON object, nothing else.`;
   }
 };
 
-/**
- * Generate recipe ideas from ingredients
- * @param {string[]} ingredients - List of available ingredients
- * @returns {Promise<Object>} Recipe suggestions
- */
 export const generateRecipesFromIngredients = async (
   ingredients,
   language = "english",
