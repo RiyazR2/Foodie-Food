@@ -46,30 +46,32 @@ export const Header = () => {
           </div>
 
           {/* Right Side - Home, AI Kitchen, Cart, then Location */}
-          <div className="hidden md:flex items-center space-x-3 ml-auto">
+          <div className="flex items-center space-x-2 sm:space-x-3 ml-auto overflow-x-auto">
             {/* Home Link */}
             <Link
               to="/"
-              className="px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 transition-all duration-200"
+              className="px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 transition-all duration-200 whitespace-nowrap"
             >
-              🏠 Home
+              🏠 <span className="hidden sm:inline">Home</span>
             </Link>
 
             {/* Recipe Generator Link */}
             <Link
               to="/ai-kitchen"
-              className="px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:shadow-lg hover:scale-105 transition-all duration-200 flex items-center space-x-1"
+              className="px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:shadow-lg hover:scale-105 transition-all duration-200 flex items-center space-x-1 whitespace-nowrap"
             >
               <span>🍳</span>
-              <span>Recipe Generator</span>
+              <span className="hidden sm:inline">Recipe Generator</span>
             </Link>
 
             {/* Cart with Badge - Orange Theme */}
             <Link
               to="/cart"
-              className="relative px-5 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:shadow-xl hover:scale-105 transition-all duration-200 flex items-center space-x-2"
+              className="relative px-3 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:shadow-xl hover:scale-105 transition-all duration-200 flex items-center space-x-2 whitespace-nowrap"
             >
-              <span>🛒 Cart</span>
+              <span>
+                🛒 <span className="hidden sm:inline">Cart</span>
+              </span>
               {cartItems.length > 0 && (
                 <span className="bg-white text-orange-600 text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
                   {cartItems.length}
@@ -79,21 +81,6 @@ export const Header = () => {
 
             {/* Location Selector - Last on Right */}
             <LocationSelector />
-          </div>
-
-          {/* Mobile Cart - Orange Theme */}
-          <div className="md:hidden">
-            <Link
-              to="/cart"
-              className="relative p-2 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg"
-            >
-              <span className="text-lg">🛒</span>
-              {cartItems.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-white text-orange-600 text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
-                  {cartItems.length}
-                </span>
-              )}
-            </Link>
           </div>
         </div>
 
