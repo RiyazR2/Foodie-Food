@@ -85,7 +85,7 @@ const LocationSelector = () => {
 
       {/* Modern Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-full left-0 mt-2 w-72 glass-card rounded-2xl shadow-2xl z-50 animate-float-up border border-white/30">
+        <div className="absolute top-full right-0 mt-2 w-80 max-h-96 overflow-y-auto glass-card rounded-2xl shadow-2xl z-50 animate-float-up border border-white/30">
           <div className="p-3">
             {/* Primary: Detect Location - Orange Theme */}
             <button
@@ -115,8 +115,8 @@ const LocationSelector = () => {
             </div>
 
             {/* Popular Cities - Orange Theme */}
-            <div className="space-y-1">
-              <div className="px-3 py-1 text-xs font-bold text-orange-600 uppercase tracking-wide">
+            <div className="space-y-1 max-h-60 overflow-y-auto">
+              <div className="px-3 py-1 text-xs font-bold text-orange-600 uppercase tracking-wide sticky top-0 bg-white/90 backdrop-blur-sm z-10">
                 Popular Cities
               </div>
               {Object.entries(cities).map(([cityKey, cityData]) => (

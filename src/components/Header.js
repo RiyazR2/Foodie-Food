@@ -6,9 +6,10 @@ import { useSelector } from "react-redux";
 import LocationSelector from "./LocationSelector";
 
 export const Header = () => {
-  // const [btnNameReact, setBtnNameReact] = useState("Login");
   const onlineStatus = useOnlineStatus();
   const cartItems = useSelector((store) => store.cart.items);
+
+  console.log("Header rendered - Cart items:", cartItems.length);
 
   // const log = () => {
   //   setBtnNameReact((prev) => (prev === "Login" ? "Logout" : "Login"));
@@ -27,18 +28,18 @@ export const Header = () => {
                 src={logo}
                 alt="FoodieFinder Logo"
               />
-              {/* Brand Name - Compact */}
-              <div className="hidden sm:block">
-                <h1 className="text-lg sm:text-xl font-bold flex items-center space-x-2">
+              {/* Brand Name */}
+              <div>
+                <h1 className="text-base sm:text-lg md:text-xl font-bold flex items-center space-x-1 sm:space-x-2">
                   <span className="text-slate-800">Foodie</span>
                   <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
                     Finder
                   </span>
-                  <span className="px-2 py-0.5 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-xs font-bold rounded-full">
+                  <span className="px-1.5 sm:px-2 py-0.5 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-[10px] sm:text-xs font-bold rounded-full">
                     AI
                   </span>
                 </h1>
-                <p className="text-[10px] text-gray-500 -mt-0.5 font-medium">
+                <p className="hidden sm:block text-[10px] text-gray-500 -mt-0.5 font-medium">
                   ✨ AI-Powered Restaurant Discovery
                 </p>
               </div>
@@ -50,9 +51,10 @@ export const Header = () => {
             {/* Home Link */}
             <Link
               to="/"
-              className="px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 transition-all duration-200 whitespace-nowrap"
+              className="px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium text-gray-700 hover:text-orange-500 hover:bg-orange-50 transition-all duration-200 whitespace-nowrap flex items-center space-x-1"
             >
-              🏠 <span className="hidden sm:inline">Home</span>
+              <span>🏠</span>
+              <span>Home</span>
             </Link>
 
             {/* Recipe Generator Link */}
@@ -61,7 +63,8 @@ export const Header = () => {
               className="px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:shadow-lg hover:scale-105 transition-all duration-200 flex items-center space-x-1 whitespace-nowrap"
             >
               <span>🍳</span>
-              <span className="hidden sm:inline">Recipe Generator</span>
+              <span className="hidden md:inline">Recipe Generator</span>
+              <span className="md:hidden">Recipes</span>
             </Link>
 
             {/* Cart with Badge - Orange Theme */}
@@ -69,8 +72,9 @@ export const Header = () => {
               to="/cart"
               className="relative px-3 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:shadow-xl hover:scale-105 transition-all duration-200 flex items-center space-x-2 whitespace-nowrap"
             >
-              <span>
-                🛒 <span className="hidden sm:inline">Cart</span>
+              <span className="flex items-center space-x-1">
+                <span>🛒</span>
+                <span>Cart</span>
               </span>
               {cartItems.length > 0 && (
                 <span className="bg-white text-orange-600 text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
