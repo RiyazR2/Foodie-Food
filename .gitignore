@@ -26,3 +26,8 @@ READMEEEE.md
 
 /FoodieFinder_Interview_QA.md
 /RESUME_INTERVIEW_QA.md
+
+# Environment variables (API Keys)
+.env
+.env.local
+.env.production
