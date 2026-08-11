@@ -31,3 +31,8 @@ READMEEEE.md
 .env
 .env.local
 .env.production
+
+# Build scripts
+*.bat
+push_to_github.bat
+fix_git_and_push.bat

@@ -39,7 +39,7 @@ export const Header = () => {
                     AI
                   </span>
                 </h1>
-                <p className="hidden sm:block text-[10px] text-gray-500 -mt-0.5 font-medium">
+                <p className="text-[10px] text-gray-500 -mt-0.5 font-medium">
                   ✨ AI-Powered Restaurant Discovery
                 </p>
               </div>
@@ -47,7 +47,7 @@ export const Header = () => {
           </div>
 
           {/* Right Side - Home, AI Kitchen, Cart, then Location */}
-          <div className="flex items-center space-x-2 sm:space-x-3 ml-auto overflow-x-auto">
+          <div className="flex items-center space-x-2 sm:space-x-3 ml-auto">
             {/* Home Link */}
             <Link
               to="/"
@@ -63,8 +63,7 @@ export const Header = () => {
               className="px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-semibold bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:shadow-lg hover:scale-105 transition-all duration-200 flex items-center space-x-1 whitespace-nowrap"
             >
               <span>🍳</span>
-              <span className="hidden md:inline">Recipe Generator</span>
-              <span className="md:hidden">Recipes</span>
+              <span>Recipe Generator</span>
             </Link>
 
             {/* Cart with Badge - Orange Theme */}

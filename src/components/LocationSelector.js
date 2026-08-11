@@ -85,7 +85,7 @@ const LocationSelector = () => {
 
       {/* Modern Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-full right-0 mt-2 w-80 max-h-96 overflow-y-auto glass-card rounded-2xl shadow-2xl z-50 animate-float-up border border-white/30">
+        <div className="absolute top-full right-0 mt-2 w-80 glass-card rounded-2xl shadow-2xl z-50 animate-float-up border border-white/30">
           <div className="p-3">
             {/* Primary: Detect Location - Orange Theme */}
             <button
