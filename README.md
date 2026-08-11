@@ -39,13 +39,9 @@
 - 🛒 **Cart Management** - Redux-powered shopping cart with real-time updates
 - 📱 **Responsive Design** - Glassmorphic UI optimized for all devices
 
-### 🎨 **UI/UX Highlights**
+### 🎨 **Design**
 
-- Modern glassmorphism design with orange/amber theme
-- Smooth animations and transitions
-- Loading states and error handling
-- Session-based caching for 40% faster loads
-- Accessibility-focused (WCAG AA compliant)
+Modern glassmorphism UI with orange theme, responsive across devices, session caching for faster loads.
 
 ## 🤖 AI Capabilities
 
@@ -61,62 +57,19 @@ Natural language search powered by Groq's Llama 3.3 70B model.
 "chinese food in solapur"    →  Filters: cuisine=chinese, location=solapur
 ```
 
-**Technical Implementation:**
-
-- LLM function calling with structured JSON responses
-- Temperature=0.3 for consistent parsing
-- 92% search success rate
-- Graceful fallback to text search on AI failure
+Uses LLM to parse queries into structured filters with fallback to regular search if needed.
 
 ---
 
 ### 2️⃣ **Restaurant Insights** 🎯
 
-Click "Restaurant Insights" on any restaurant card to get:
-
-- 📝 **Quick Summary** - AI-generated restaurant overview
-- 🎯 **Best For** - Ideal occasions (family dinners, dates, quick bites)
-- ⏰ **Peak Hours** - When to visit for shortest wait times
-- 💰 **Budget Tips** - How to save money
-- ⭐ **Why Popular** - What makes this place special
-- 🍽️ **Must-Try Dishes** - Top 3-5 recommended dishes
-
-**Features:**
-
-- Netflix-style modal with React Portals
-- Loading animations with progress steps
-- Error handling with retry option
-- Keyboard shortcuts (ESC to close)
+Click on any restaurant card to get AI-powered insights including quick summary, best occasions, peak hours to avoid crowds, budget tips, and must-try dishes based on reviews and ratings.
 
 ---
 
-### 3️⃣ **Multi-Language Recipe Generator** 🍳
+### 3️⃣ **Recipe Generator** 🍳
 
-Enter 4+ ingredients and get detailed recipes in your language!
-
-**Supported Languages:**
-
-- 🇬🇧 English
-- 🇮🇳 Hindi (हिंदी)
-- 🇮🇳 Marathi (मराठी)
-- 🇮🇳 Telugu (తెలుగు)
-- 🇮🇳 Kannada (ಕನ್ನಡ)
-- 🇮🇳 Gujarati (ગુજરાતી)
-- 🇮🇳 Tamil (தமிழ்)
-
-**Recipe Output:**
-
-- Recipe name in native script
-- 10-15 detailed step-by-step instructions
-- Ingredient list with measurements
-- Cooking time and difficulty level
-- Cultural authenticity maintained
-
-**Validation:**
-
-- Minimum 4 ingredients required
-- Real-time ingredient count display
-- Clear error messages
+Enter ingredients you have at home and get step-by-step recipes in English or 6 Indian regional languages (Hindi, Marathi, Telugu, Kannada, Gujarati, Tamil) with native script support.
 
 ---
 
@@ -297,7 +250,7 @@ npm run watch-test
 npm test -- --coverage
 ```
 
-**Current Test Coverage:** 65% (Cart slice: 100%, Components: 65%)
+Tests cover cart functionality and key components using Jest and React Testing Library.
 
 ---
 
@@ -371,30 +324,9 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ---
 
-## 🙏 Acknowledgments
+## 🙏 Credits
 
-- **Akshay Saini** - For the Namaste React course
-- **Groq** - For providing free LLM API
-- **Swiggy** - For restaurant data
-- **Netlify** - For free hosting
-
----
-
-## 🐛 Known Issues
-
-- Swiggy API may rate-limit on heavy usage (use caching)
-- Some restaurants may not have complete data
-
----
-
-## 🔮 Future Roadmap
-
-- [ ] User authentication (Firebase)
-- [ ] Order history tracking
-- [ ] Voice search integration
-- [ ] Dark mode
-- [ ] PWA (offline support)
-- [ ] Real-time order tracking
+Built during Namaste React course by Akshay Saini. Uses Groq AI for LLM features and Swiggy API for restaurant data.
 
 ---
 
