@@ -9,6 +9,7 @@ const AIKitchen = () => {
   const [error, setError] = useState(null);
   const [language, setLanguage] = useState("english");
 
+  // Add ingredient
   const handleAddIngredient = () => {
     if (currentInput.trim() && !ingredients.includes(currentInput.trim())) {
       setIngredients([...ingredients, currentInput.trim()]);
@@ -16,10 +17,12 @@ const AIKitchen = () => {
     }
   };
 
+  // Remove ingredient
   const handleRemoveIngredient = (index) => {
     setIngredients(ingredients.filter((_, i) => i !== index));
   };
 
+  // Generate recipes
   const handleGenerateRecipes = async () => {
     if (ingredients.length < 4) {
       setError("Please add at least 4 ingredients for better recipes!");
@@ -44,6 +47,7 @@ const AIKitchen = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-orange-100 py-8">
+      {/* Header */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
         <div className="text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-3">
@@ -58,6 +62,7 @@ const AIKitchen = () => {
         </div>
       </div>
 
+      {/* Input Section */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
         <div className="glass-card p-6 rounded-2xl shadow-xl">
           <div className="flex items-center justify-between mb-4">
@@ -76,6 +81,7 @@ const AIKitchen = () => {
             </span>
           </div>
 
+          {/* Input Field */}
           <div className="flex gap-3 mb-4">
             <input
               type="text"
@@ -93,6 +99,7 @@ const AIKitchen = () => {
             </button>
           </div>
 
+          {/* Ingredients Chips */}
           {ingredients.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-4">
               {ingredients.map((ingredient, index) => (
@@ -112,6 +119,7 @@ const AIKitchen = () => {
             </div>
           )}
 
+          {/* Language Selector - Clean & Professional */}
           <div className="mb-4 flex items-center space-x-3">
             <label className="text-sm font-semibold text-gray-700 flex items-center space-x-2">
               <span className="text-lg">🌐</span>
@@ -149,6 +157,7 @@ const AIKitchen = () => {
             </div>
           </div>
 
+          {/* Generate Button */}
           <button
             onClick={handleGenerateRecipes}
             disabled={loading || ingredients.length < 4}
@@ -176,6 +185,7 @@ const AIKitchen = () => {
         </div>
       </div>
 
+      {/* Recipes Section */}
       {recipes && recipes.recipes && (
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
@@ -192,16 +202,19 @@ const AIKitchen = () => {
   );
 };
 
+// Recipe Card Component
 const RecipeCard = ({ recipe, index }) => {
   const [expanded, setExpanded] = useState(false);
 
   return (
     <div className="glass-card rounded-2xl overflow-hidden hover:shadow-2xl transition-all animate-float-up">
+      {/* Header */}
       <div className="bg-gradient-to-r from-orange-500 to-orange-600 p-4 text-white">
         <h3 className="text-xl font-bold mb-2">{recipe.name}</h3>
         <p className="text-sm opacity-90">{recipe.description}</p>
       </div>
 
+      {/* Info Badges */}
       <div className="p-4 bg-white border-b border-gray-100">
         <div className="grid grid-cols-3 gap-2 text-center">
           <div className="bg-orange-50 rounded-lg py-2">
@@ -231,6 +244,7 @@ const RecipeCard = ({ recipe, index }) => {
         </div>
       </div>
 
+      {/* Additional Ingredients */}
       {recipe.additionalIngredients &&
         recipe.additionalIngredients.length > 0 && (
           <div className="p-4 bg-amber-50">
@@ -250,6 +264,7 @@ const RecipeCard = ({ recipe, index }) => {
           </div>
         )}
 
+      {/* Cooking Steps */}
       <div className="p-4">
         <button
           onClick={() => setExpanded(!expanded)}

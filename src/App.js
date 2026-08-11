@@ -15,6 +15,7 @@ import SignInPage from "./components/SignInPage";
 import Footer from "./components/Footer";
 import PaymentDone from "./components/PaymentDone";
 import { LocationProvider } from "./utils/LocationContext";
+import AIKitchen from "./components/AIKitchen";
 
 const Grocery = lazy(() => import("./components/Grocery"));
 const About = lazy(() => import("./components/About"));
@@ -59,6 +60,7 @@ const appRouter = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/signin", element: <SignInPage /> },
       { path: "/payment", element: <PaymentDone /> },
+      { path: "/ai-kitchen", element: <AIKitchen /> },
       {
         path: "/about",
         element: (

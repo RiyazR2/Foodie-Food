@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useLocation } from '../utils/LocationContext';
+import React, { useState, useRef, useEffect } from "react";
+import { useLocation } from "../utils/LocationContext";
 
 const LocationSelector = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +14,7 @@ const LocationSelector = () => {
     error,
     setCity,
     getCurrentLocation,
-    clearError
+    clearError,
   } = useLocation();
 
   // Close dropdown when clicking outside
@@ -25,9 +25,9 @@ const LocationSelector = () => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -43,7 +43,7 @@ const LocationSelector = () => {
       await getCurrentLocation();
       setIsOpen(false);
     } catch (error) {
-      console.error('Error getting current location:', error);
+      console.error("Error getting current location:", error);
     } finally {
       setIsGettingLocation(false);
     }
@@ -58,19 +58,18 @@ const LocationSelector = () => {
 
   return (
     <div className="relative" ref={dropdownRef}>
-      {/* Location Display Button */}
+      {/* Modern Location Display Button - Orange Theme */}
       <button
         onClick={toggleDropdown}
-        className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+        className="flex items-center space-x-2 px-4 py-2.5 text-sm font-semibold bg-white/80 backdrop-blur-sm border-2 border-orange-200 rounded-full hover:border-orange-400 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-200 group"
         disabled={isLoading}
       >
-        <span className="text-green-600">📍</span>
-        <span className="truncate max-w-24 sm:max-w-32">
-          {isLoading ? 'Loading...' : currentLocation.name}
+        <span className="text-lg">📍</span>
+        <span className="truncate max-w-24 sm:max-w-32 text-gray-700 group-hover:text-orange-600">
+          {isLoading ? "Loading..." : currentLocation.name}
         </span>
         <svg
-          className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''
-            }`}
+          className={`w-4 h-4 transition-transform duration-200 text-orange-600 ${isOpen ? "rotate-180" : ""}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -84,51 +83,58 @@ const LocationSelector = () => {
         </svg>
       </button>
 
-      {/* Dropdown Menu */}
+      {/* Modern Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-full left-0 mt-1 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
-          <div className="p-2">
-            {/* Current Location Option */}
+        <div className="absolute top-full left-0 mt-2 w-72 glass-card rounded-2xl shadow-2xl z-50 animate-float-up border border-white/30">
+          <div className="p-3">
+            {/* Primary: Detect Location - Orange Theme */}
             <button
               onClick={handleCurrentLocation}
               disabled={isGettingLocation}
-              className="w-full flex items-center space-x-3 px-3 py-2 text-left text-sm text-gray-700 hover:bg-green-50 rounded-md transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center space-x-3 px-4 py-3 text-left rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed mb-3"
             >
-              <span className="text-blue-600">🎯</span>
+              <span className="text-2xl">🎯</span>
               <div className="flex-1">
-                <div className="font-medium">
-                  {isGettingLocation ? 'Getting location...' : 'Use Current Location'}
+                <div className="font-bold">
+                  {isGettingLocation ? "Detecting..." : "Detect My Location"}
                 </div>
-                <div className="text-xs text-gray-500">
-                  Get restaurants near you
+                <div className="text-xs text-orange-100">
+                  Find restaurants near you
                 </div>
               </div>
               {isGettingLocation && (
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+                <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
               )}
             </button>
 
             {/* Divider */}
-            <div className="border-t border-gray-200 my-2"></div>
+            <div className="flex items-center my-3">
+              <div className="flex-1 border-t border-gray-300"></div>
+              <span className="px-3 text-xs text-gray-500 font-medium">OR</span>
+              <div className="flex-1 border-t border-gray-300"></div>
+            </div>
 
-            {/* City Options */}
+            {/* Popular Cities - Orange Theme */}
             <div className="space-y-1">
-              <div className="px-3 py-1 text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                Select City
+              <div className="px-3 py-1 text-xs font-bold text-orange-600 uppercase tracking-wide">
+                Popular Cities
               </div>
               {Object.entries(cities).map(([cityKey, cityData]) => (
                 <button
                   key={cityKey}
                   onClick={() => handleCitySelect(cityKey)}
-                  className={`w-full flex items-center space-x-3 px-3 py-2 text-left text-sm rounded-md transition-colors duration-200 ${selectedCity === cityKey
-                      ? 'bg-green-100 text-green-800 font-medium'
-                      : 'text-gray-700 hover:bg-gray-50'
-                    }`}
+                  className={`w-full flex items-center space-x-3 px-4 py-2.5 text-left text-sm rounded-xl transition-all duration-200 ${
+                    selectedCity === cityKey
+                      ? "bg-orange-100 text-orange-800 font-semibold shadow-md"
+                      : "text-gray-700 hover:bg-white/70 hover:shadow-sm"
+                  }`}
                 >
-                  <span className="text-gray-400">🏙️</span>
-                  <span>{cityData.name}</span>
+                  <span className="text-lg">
+                    {selectedCity === cityKey ? "📍" : "🏙️"}
+                  </span>
+                  <span className="flex-1">{cityData.name}</span>
                   {selectedCity === cityKey && (
-                    <span className="ml-auto text-green-600">✓</span>
+                    <span className="text-orange-600 font-bold">✓</span>
                   )}
                 </button>
               ))}
@@ -144,18 +150,17 @@ const LocationSelector = () => {
                   <div className="text-sm text-red-600 font-medium">
                     Location Error
                   </div>
-                  <div className="text-xs text-red-500 mt-1">
-                    {error}
-                  </div>
+                  <div className="text-xs text-red-500 mt-1">{error}</div>
                 </div>
               </div>
             </div>
           )}
 
-          {/* Footer */}
-          <div className="border-t border-gray-200 p-2">
-            <div className="text-xs text-gray-500 text-center">
-              Location helps us show nearby restaurants
+          {/* Modern Footer */}
+          <div className="border-t border-white/30 p-3 mt-2">
+            <div className="text-xs text-gray-600 text-center flex items-center justify-center space-x-1">
+              <span>🤖</span>
+              <span>AI finds best restaurants near you</span>
             </div>
           </div>
         </div>

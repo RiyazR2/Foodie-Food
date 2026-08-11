@@ -1,44 +1,77 @@
-# Foodie Food 🍽️
+# FoodieFinder AI 🍽️🤖
+
+**AI-Powered Restaurant Discovery Platform**
 
 [Live Demo](https://foodiefinderr2.netlify.app/)
+
+[![React](https://img.shields.io/badge/React-18-blue)](https://reactjs.org/)
+[![Groq AI](https://img.shields.io/badge/Groq-AI-orange)](https://groq.com/)
+[![Redux](https://img.shields.io/badge/Redux-Toolkit-purple)](https://redux-toolkit.js.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-cyan)](https://tailwindcss.com/)
 
 ## Table of Contents
 
 - [Overview](#overview)
+- [AI Features](#ai-features)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Folder Structure](#folder-structure)
 - [API Reference](#api-reference)
-- [Contributing](#contributing)
+- [Developer](#developer)
 - [License](#license)
-- [Contact](#contact)
 
 ## Overview
 
-Foodie Food is a recipe discovery web application designed to help food lovers easily search, browse, and save their favorite recipes. The project aims to provide an intuitive and responsive interface for users to explore a variety of recipes, from quick snacks to gourmet dishes, making cooking more enjoyable.
+**FoodieFinder AI** is an intelligent restaurant discovery platform that combines real-time Swiggy data with AI-powered insights. Built with React and powered by Groq's LLM, it offers natural language search, personalized recommendations, and smart recipe generation.
 
-This project is built using modern web technologies such as ReactJS, Tailwind CSS, and leverages an external recipe API to provide a comprehensive and up-to-date collection of recipes.
+This project showcases modern web development practices including React 18, Redux Toolkit, Tailwind CSS, and AI integration for a next-generation food ordering experience.
+
+## 🤖 AI Features
+
+### ✅ **Implemented**
+
+1. **AI Restaurant Insights** 🎯
+   - Click "AI Insights" on any restaurant card
+   - Get personalized recommendations, must-try dishes, peak hours, and budget tips
+   - Powered by Groq's Llama 3.3 70B model
+
+### 🚧 **Coming Soon**
+
+2. **Smart Restaurant Search** 🔍
+   - Natural language queries like "budget biryani under ₹200"
+   - LLM-powered query parsing and intelligent filtering
+
+3. **Fridge-to-Recipe Generator** 🧊
+   - Enter ingredients you have at home
+   - AI generates complete recipes with steps
 
 ## Features
 
-- **Search Recipes**: Users can search for recipes by keywords, allowing them to quickly find recipes of interest.
-- **Recipe Details**: Each recipe includes a detailed description, ingredient list, and cooking instructions.
-- **Responsive Design**: The application is fully responsive, ensuring a seamless experience across desktops, tablets, and mobile devices.
-<!-- - **Favorites List**: Users can save their favorite recipes for easy access. -->
-- **API Integration**: The app fetches data from an external recipe API to deliver the latest and diverse recipe options.
+- **Real-Time Restaurant Data**: Fetches live data from Swiggy API
+- **AI-Powered Insights**: Intelligent restaurant recommendations using Groq AI
+- **Smart Search**: Natural language search with LLM function calling (coming soon)
+- **Location-Based**: Multi-city support (Mumbai, Pune, Delhi, Bangalore, etc.)
+- **Cart Management**: Redux-powered shopping cart with persistent state
+- **Responsive Design**: Modern glassmorphic UI optimized for all devices
+- **Live Menu**: Browse restaurant menus with smooth accordion animations
 
 ## Tech Stack
 
 - **Frontend**:
-  - **ReactJS**: Used for building user interfaces and handling dynamic content.
-  - **JavaScript**: Core scripting language for functionality.
-  - **Tailwind CSS**: Used for fast and responsive styling of the UI.
+  - **React 18**: Modern UI with hooks, Suspense, and lazy loading
+  - **Redux Toolkit**: State management for cart and user preferences
+  - **Tailwind CSS**: Utility-first styling with custom glassmorphic design
+  - **React Router**: Client-side routing
+- **AI & LLM**:
+  - **Groq SDK**: Fast LLM inference with Llama 3.3 70B model
+  - **Function Calling**: Structured JSON responses for search parsing
 - **Build Tool**:
-  - **Parcel**: Bundler used to compile and serve the code during development and production.
-- **External API**:
-  - Integrated with a third-party API to fetch the latest recipe data.
+  - **Parcel**: Zero-config bundler for fast builds
+- **External APIs**:
+  - **Swiggy API**: Real-time restaurant data (proxied via Express/Netlify Functions)
+  - **Groq API**: AI-powered insights and natural language processing
 
 ## Installation
 
@@ -49,17 +82,44 @@ This project is built using modern web technologies such as ReactJS, Tailwind CS
 
 ### Steps to Install
 
-1. **Clone the Repository**: Clone the project repository from GitHub:
+1. **Clone the Repository**:
+
    ```bash
    git clone https://github.com/RiyazR2/Foodie-Food.git
-   ```
-2. Navigate to Project Directory:
    cd Foodie-Food
+   ```
 
-3. Install Dependencies: Install all necessary dependencies using npm:
+2. **Install Dependencies**:
+
+   ```bash
    npm install
+   ```
 
-4. Start the Development Server: Run the following command to start the local development server:
+3. **Setup Environment Variables**:
+   - Copy `.env.example` to `.env`:
+     ```bash
+     cp .env.example .env
+     ```
+   - Get your **FREE** Groq API key from: https://console.groq.com/keys
+   - Update `.env` with your key:
+     ```env
+     REACT_APP_GROQ_API_KEY=your_groq_api_key_here
+     ```
+
+4. **Start the Development Server**:
+
+   ```bash
+   npm start
+   ```
+
+   The app will open at `http://localhost:1234`
+
+5. **Build for Production** (optional):
+
+   ```bash
+   npm run build
+   ```
+
    npm start
 
    The app will be available at http://localhost:1234 in your web browser.

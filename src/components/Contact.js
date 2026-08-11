@@ -21,14 +21,24 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center py-10">
-      <div className="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
-        <h2 className="text-2xl font-semibold mb-6 text-center">Contact Us</h2>
+    <div className="min-h-screen flex flex-col justify-center items-center py-10 px-4">
+      <div className="glass-card rounded-2xl shadow-2xl p-8 max-w-md w-full mb-10 animate-float-up">
+        <div className="text-center mb-6">
+          <h2 className="text-3xl font-bold gradient-text mb-2">
+            Get in Touch
+          </h2>
+          <p className="text-gray-600">
+            Have questions? We'd love to hear from you!
+          </p>
+        </div>
 
         {!submitted ? (
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="name" className="block text-gray-700">
+              <label
+                htmlFor="name"
+                className="block text-gray-700 font-medium mb-2"
+              >
                 Name
               </label>
               <input
@@ -38,11 +48,15 @@ const Contact = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:outline-none"
+                className="w-full px-4 py-3 border-2 border-orange-200 rounded-xl shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:outline-none transition-all"
+                placeholder="Your name"
               />
             </div>
             <div>
-              <label htmlFor="email" className="block text-gray-700">
+              <label
+                htmlFor="email"
+                className="block text-gray-700 font-medium mb-2"
+              >
                 Email
               </label>
               <input
@@ -52,11 +66,15 @@ const Contact = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:outline-none"
+                className="w-full px-4 py-3 border-2 border-orange-200 rounded-xl shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:outline-none transition-all"
+                placeholder="your.email@example.com"
               />
             </div>
             <div>
-              <label htmlFor="message" className="block text-gray-700">
+              <label
+                htmlFor="message"
+                className="block text-gray-700 font-medium mb-2"
+              >
                 Message
               </label>
               <textarea
@@ -65,36 +83,85 @@ const Contact = () => {
                 value={formData.message}
                 onChange={handleChange}
                 required
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:outline-none"
+                rows="4"
+                className="w-full px-4 py-3 border-2 border-orange-200 rounded-xl shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:outline-none transition-all resize-none"
+                placeholder="Your message..."
               />
             </div>
             <div>
-              <button
-                type="submit"
-                className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow hover:bg-blue-600 focus:ring focus:ring-blue-500 focus:outline-none"
-              >
-                Submit
+              <button type="submit" className="w-full btn-gradient">
+                Send Message 📧
               </button>
             </div>
           </form>
         ) : (
-          <div className="text-center text-green-500 font-semibold">
-            Thank you for contacting us! We will get back to you soon.
+          <div className="text-center p-6 bg-green-50 rounded-xl border-2 border-green-200">
+            <div className="text-5xl mb-3">✅</div>
+            <p className="text-green-700 font-semibold text-lg">
+              Message Sent Successfully!
+            </p>
+            <p className="text-green-600 text-sm mt-2">
+              We'll get back to you soon.
+            </p>
           </div>
         )}
       </div>
 
-      <div className="mt-10 p-8 max-w-md w-full text-center bg-white shadow-lg rounded-lg">
-        <h3 className="text-xl font-semibold mb-4">Our Contact Details</h3>
-        <p className="text-gray-700">Restaurant Name: Foodie Food</p>
-        <p className="text-gray-700">Location: Solapur, Maharashtra</p>
-        <p className="text-gray-700">
-          Email:{" "}
-          <a href="mailto:contact@foodiefood.com" className="text-blue-500">
-            contact@foodiefood.com
-          </a>
-        </p>
-        <p className="text-gray-700">Phone: +91 0987654321</p>
+      <div className="glass-card rounded-2xl shadow-xl p-8 max-w-md w-full text-center animate-float-up">
+        <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center justify-center space-x-2">
+          <span>👨‍💻</span>
+          <span>Developer Info</span>
+        </h3>
+
+        <div className="space-y-4">
+          <div className="flex items-center justify-center space-x-2 text-gray-700">
+            <span className="text-orange-600 font-bold">Name:</span>
+            <span>Riyaz Pathan</span>
+          </div>
+
+          <div className="flex items-center justify-center space-x-2 text-gray-700">
+            <span className="text-orange-600">💻</span>
+            <a
+              href="https://github.com/RiyazR2"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-orange-600 hover:text-orange-700 font-medium transition-colors"
+            >
+              GitHub.com/RiyazR2
+            </a>
+          </div>
+
+          <div className="flex items-center justify-center space-x-2 text-gray-700">
+            <span className="text-orange-600">💼</span>
+            <a
+              href="https://www.linkedin.com/in/riyazr2/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-orange-600 hover:text-orange-700 font-medium transition-colors"
+            >
+              LinkedIn.com/in/riyazr2
+            </a>
+          </div>
+
+          <div className="flex items-center justify-center space-x-2 text-gray-700">
+            <span className="text-orange-600">🌐</span>
+            <a
+              href="https://portfolior2.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-orange-600 hover:text-orange-700 font-medium transition-colors"
+            >
+              portfolior2.netlify.app
+            </a>
+          </div>
+        </div>
+
+        <div className="mt-6 pt-6 border-t border-gray-200">
+          <p className="text-sm text-gray-600">
+            💡 This is a portfolio project showcasing React, Redux & AI
+            integration
+          </p>
+        </div>
       </div>
     </div>
   );
