@@ -1,7 +1,20 @@
 {
-  "name": "react-r2",
-  "version": "1.0.0",
-  "description": "This is Namaste React by Akshay Saini",
+  "name": "foodiefinder-ai",
+  "version": "2.0.0",
+  "description": "AI-powered restaurant discovery platform with Smart Search, Restaurant Insights, and Multi-Language Recipe Generator built by Riyaz Pathan",
+  "author": "Riyaz Pathan",
+  "keywords": [
+    "react",
+    "groq-ai",
+    "llm",
+    "restaurant-discovery",
+    "ai-powered",
+    "redux-toolkit",
+    "tailwindcss",
+    "food-delivery",
+    "recipe-generator",
+    "natural-language-processing"
+  ],
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
@@ -10,15 +23,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RiyazR2/ReactJs-R2.git"
+    "url": "git+https://github.com/RiyazR2/Foodie-Food.git"
   },
-  "keywords": [],
-  "author": "Riyaz Pathan",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/RiyazR2/ReactJs-R2/issues"
+    "url": "https://github.com/RiyazR2/Foodie-Food/issues"
   },
-  "homepage": "https://github.com/RiyazR2/ReactJs-R2#readme",
+  "homepage": "https://foodiefinder2.netlify.app/",
   "devDependencies": {
     "@babel/core": "^7.24.3",
     "@babel/preset-env": "^7.24.3",
