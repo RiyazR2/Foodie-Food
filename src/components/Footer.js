@@ -144,7 +144,7 @@ const Footer = () => {
               ))}
             </ul>
             <div className="mt-4 p-3 bg-gray-800 rounded-lg border border-orange-800">
-              <p className="text-xs text-gray-400 mb-1">🤖 AI Features</p>
+              <p className="text-xs text-gray-400 mb-1">More 🤖 AI Features</p>
               <p className="text-sm text-orange-400 font-medium">
                 Coming Soon!
               </p>

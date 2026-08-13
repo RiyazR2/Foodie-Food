@@ -32,7 +32,7 @@
 
 ### 🎯 **Core Features**
 
-- 🔍 **Smart Search** - Natural language queries like "budget biryani under ₹600"
+- 🔍 **Smart Search** - Natural language queries like "budget biryani under ₹300"
 - 🤖 **Restaurant Insights** - AI-generated recommendations, must-try dishes, peak hours
 - 🍳 **Recipe Generator** - Multi-language recipes (7 Indian languages + English)
 - 📍 **Multi-City Support** - Mumbai, Pune, Delhi, Bangalore, Chennai, Kolkata
@@ -52,7 +52,7 @@ Natural language search powered by Groq's Llama 3.3 70B model.
 **Examples:**
 
 ```
-"budget biryani under ₹600"  →  Filters: cuisine=biryani, maxPrice=600
+"budget biryani under ₹300"  →  Filters: cuisine=biryani, maxPrice=300
 "top rated pizza"            →  Filters: cuisine=pizza, rating=4.0+
 "chinese food in solapur"    →  Filters: cuisine=chinese, location=solapur
 ```
