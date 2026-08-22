@@ -8,7 +8,7 @@ test("should load Contact us component", () => {
   render(<Contact />);
 
   // Querying
-  const heading = screen.getByRole("heading");
+  const heading = screen.getByRole("heading", { name: "Get in Touch" });
 
   // Assertion
   expect(heading).toBeInTheDocument();
@@ -18,8 +18,8 @@ it("should load button inside Contact component", () => {
   render(<Contact />);
 
   const button = screen.getByRole("button");
-  const text = screen.getByText("Submit");
-  const ini = screen.getByPlaceholderText("Message");
+  const text = screen.getByText(/Send Message/);
+  const ini = screen.getByPlaceholderText("Your message...");
 
   // Assertion
   expect(button).toBeInTheDocument();
@@ -30,18 +30,18 @@ it("should load button inside Contact component", () => {
 test("should load input name inside Contact component", () => {
   render(<Contact />);
 
-  const inputName = screen.getByPlaceholderText("Message");
+  const inputName = screen.getByPlaceholderText("Your name");
 
   // Assertion
   expect(inputName).toBeInTheDocument();
 });
 
-test("should load 2 inout boxes inside contact component", () => {
+test("should load 3 input boxes inside contact component", () => {
   render(<Contact />);
 
   const inputBoxes = screen.getAllByRole("textbox");
 
-  expect(inputBoxes.length).toBe(2);
+  expect(inputBoxes.length).toBe(3);
   // expect(inputBoxes.length).toBeLessThanOrEqual(2);
   // expect(inputBoxes.length).not.toBe(3);
 });

@@ -146,12 +146,12 @@ const Contact = () => {
           <div className="flex items-center justify-center space-x-2 text-gray-700">
             <span className="text-orange-600">🌐</span>
             <a
-              href="https://portfolior2.netlify.app/"
+              href="https://riyazr2.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-orange-600 hover:text-orange-700 font-medium transition-colors"
             >
-              portfolior2.netlify.app
+              riyazr2.vercel.app
             </a>
           </div>
         </div>

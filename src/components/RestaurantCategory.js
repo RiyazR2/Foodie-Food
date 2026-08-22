@@ -5,7 +5,6 @@ const RestaurantCategory = ({ categoryData, showItems, setShowIndex }) => {
   const handleClick = () => {
     setShowIndex(); //
   };
-  // console.log("categoryData:", categoryData);
 
   return (
     <div className="glass-card rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 animate-float-up">

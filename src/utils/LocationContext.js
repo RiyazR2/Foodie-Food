@@ -1,14 +1,14 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
-import { CITY_COORDINATES } from './constants';
+import React, { createContext, useContext, useReducer, useEffect } from "react";
+import { CITY_COORDINATES } from "./constants";
 
 // Location action types
 const LOCATION_ACTIONS = {
-  SET_LOCATION: 'SET_LOCATION',
-  SET_LOADING: 'SET_LOADING',
-  SET_ERROR: 'SET_ERROR',
-  SET_CITY: 'SET_CITY',
-  SET_GEOLOCATION: 'SET_GEOLOCATION',
-  CLEAR_ERROR: 'CLEAR_ERROR'
+  SET_LOCATION: "SET_LOCATION",
+  SET_LOADING: "SET_LOADING",
+  SET_ERROR: "SET_ERROR",
+  SET_CITY: "SET_CITY",
+  SET_GEOLOCATION: "SET_GEOLOCATION",
+  CLEAR_ERROR: "CLEAR_ERROR",
 };
 
 // Initial state
@@ -17,12 +17,12 @@ const initialState = {
     lat: CITY_COORDINATES.solapur.lat,
     lng: CITY_COORDINATES.solapur.lng,
     name: CITY_COORDINATES.solapur.name,
-    type: 'city' // 'city' or 'geolocation'
+    type: "city", // 'city' or 'geolocation'
   },
-  selectedCity: 'solapur',
+  selectedCity: "solapur",
   isLoading: false,
   error: null,
-  isGeolocationEnabled: false
+  isGeolocationEnabled: false,
 };
 
 // Location reducer
@@ -33,18 +33,18 @@ const locationReducer = (state, action) => {
         ...state,
         currentLocation: action.payload,
         isLoading: false,
-        error: null
+        error: null,
       };
     case LOCATION_ACTIONS.SET_LOADING:
       return {
         ...state,
-        isLoading: action.payload
+        isLoading: action.payload,
       };
     case LOCATION_ACTIONS.SET_ERROR:
       return {
         ...state,
         error: action.payload,
-        isLoading: false
+        isLoading: false,
       };
     case LOCATION_ACTIONS.SET_CITY:
       const cityData = CITY_COORDINATES[action.payload];
@@ -53,10 +53,10 @@ const locationReducer = (state, action) => {
         selectedCity: action.payload,
         currentLocation: {
           ...cityData,
-          type: 'city'
+          type: "city",
         },
         isGeolocationEnabled: false,
-        error: null
+        error: null,
       };
     case LOCATION_ACTIONS.SET_GEOLOCATION:
       return {
@@ -64,17 +64,17 @@ const locationReducer = (state, action) => {
         currentLocation: {
           lat: action.payload.lat,
           lng: action.payload.lng,
-          name: action.payload.name || 'Current Location',
-          type: 'geolocation'
+          name: action.payload.name || "Current Location",
+          type: "geolocation",
         },
         isGeolocationEnabled: true,
         selectedCity: null,
-        error: null
+        error: null,
       };
     case LOCATION_ACTIONS.CLEAR_ERROR:
       return {
         ...state,
-        error: null
+        error: null,
       };
     default:
       return state;
@@ -90,31 +90,33 @@ export const LocationProvider = ({ children }) => {
 
   // Load saved location from localStorage on mount
   useEffect(() => {
-    const savedLocation = localStorage.getItem('foodie-location');
+    const savedLocation = localStorage.getItem("foodie-location");
     if (savedLocation) {
       try {
         const locationData = JSON.parse(savedLocation);
         dispatch({
           type: LOCATION_ACTIONS.SET_LOCATION,
-          payload: locationData
+          payload: locationData,
         });
-        if (locationData.type === 'city') {
+        if (locationData.type === "city") {
           dispatch({
             type: LOCATION_ACTIONS.SET_CITY,
-            payload: Object.keys(CITY_COORDINATES).find(
-              key => CITY_COORDINATES[key].name === locationData.name
-            ) || 'solapur'
+            payload:
+              Object.keys(CITY_COORDINATES).find(
+                (key) => CITY_COORDINATES[key].name === locationData.name,
+              ) || "solapur",
           });
         }
-      } catch (error) {
-        console.error('Error loading saved location:', error);
-      }
+      } catch (error) {}
     }
   }, []);
 
   // Save location to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('foodie-location', JSON.stringify(state.currentLocation));
+    localStorage.setItem(
+      "foodie-location",
+      JSON.stringify(state.currentLocation),
+    );
   }, [state.currentLocation]);
 
   // Action creators
@@ -122,7 +124,7 @@ export const LocationProvider = ({ children }) => {
     if (CITY_COORDINATES[cityKey]) {
       dispatch({
         type: LOCATION_ACTIONS.SET_CITY,
-        payload: cityKey
+        payload: cityKey,
       });
     }
   };
@@ -130,27 +132,27 @@ export const LocationProvider = ({ children }) => {
   const setGeolocation = (lat, lng, name) => {
     dispatch({
       type: LOCATION_ACTIONS.SET_GEOLOCATION,
-      payload: { lat, lng, name }
+      payload: { lat, lng, name },
     });
   };
 
   const setLoading = (loading) => {
     dispatch({
       type: LOCATION_ACTIONS.SET_LOADING,
-      payload: loading
+      payload: loading,
     });
   };
 
   const setError = (error) => {
     dispatch({
       type: LOCATION_ACTIONS.SET_ERROR,
-      payload: error
+      payload: error,
     });
   };
 
   const clearError = () => {
     dispatch({
-      type: LOCATION_ACTIONS.CLEAR_ERROR
+      type: LOCATION_ACTIONS.CLEAR_ERROR,
     });
   };
 
@@ -158,7 +160,7 @@ export const LocationProvider = ({ children }) => {
   const getCurrentLocation = () => {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
-        reject(new Error('Geolocation is not supported by this browser'));
+        reject(new Error("Geolocation is not supported by this browser"));
         return;
       }
 
@@ -168,24 +170,24 @@ export const LocationProvider = ({ children }) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          setGeolocation(latitude, longitude, 'Current Location');
+          setGeolocation(latitude, longitude, "Current Location");
           setLoading(false);
           resolve({ lat: latitude, lng: longitude });
         },
         (error) => {
-          let errorMessage = 'Unable to get your location';
+          let errorMessage = "Unable to get your location";
           switch (error.code) {
             case error.PERMISSION_DENIED:
-              errorMessage = 'Location access denied by user';
+              errorMessage = "Location access denied by user";
               break;
             case error.POSITION_UNAVAILABLE:
-              errorMessage = 'Location information is unavailable';
+              errorMessage = "Location information is unavailable";
               break;
             case error.TIMEOUT:
-              errorMessage = 'Location request timed out';
+              errorMessage = "Location request timed out";
               break;
             default:
-              errorMessage = 'An unknown error occurred while getting location';
+              errorMessage = "An unknown error occurred while getting location";
               break;
           }
           setError(errorMessage);
@@ -195,8 +197,8 @@ export const LocationProvider = ({ children }) => {
         {
           enableHighAccuracy: true,
           timeout: 10000,
-          maximumAge: 300000 // 5 minutes
-        }
+          maximumAge: 300000, // 5 minutes
+        },
       );
     });
   };
@@ -209,7 +211,7 @@ export const LocationProvider = ({ children }) => {
     setLoading,
     setError,
     clearError,
-    cities: CITY_COORDINATES
+    cities: CITY_COORDINATES,
   };
 
   return (
@@ -223,7 +225,7 @@ export const LocationProvider = ({ children }) => {
 export const useLocation = () => {
   const context = useContext(LocationContext);
   if (!context) {
-    throw new Error('useLocation must be used within a LocationProvider');
+    throw new Error("useLocation must be used within a LocationProvider");
   }
   return context;
 };

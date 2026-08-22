@@ -43,7 +43,7 @@ const LocationSelector = () => {
       await getCurrentLocation();
       setIsOpen(false);
     } catch (error) {
-      console.error("Error getting current location:", error);
+      // The location context exposes the user-facing error message.
     } finally {
       setIsGettingLocation(false);
     }

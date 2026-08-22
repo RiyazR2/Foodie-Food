@@ -1,5 +1,5 @@
 // import { useState, useContext } from "react";
-import logo from "../utils/logo.png";
+import logo from "../utils/foodieFinder_logo.png";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import { useSelector } from "react-redux";
@@ -8,12 +8,6 @@ import LocationSelector from "./LocationSelector";
 export const Header = () => {
   const onlineStatus = useOnlineStatus();
   const cartItems = useSelector((store) => store.cart.items);
-
-  console.log("Header rendered - Cart items:", cartItems.length);
-
-  // const log = () => {
-  //   setBtnNameReact((prev) => (prev === "Login" ? "Logout" : "Login"));
-  // };
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-lg border-b-2 border-orange-100 shadow-md">

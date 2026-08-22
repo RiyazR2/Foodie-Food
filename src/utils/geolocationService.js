@@ -9,14 +9,14 @@ export const getCurrentPosition = (options = {}) => {
   const defaultOptions = {
     enableHighAccuracy: true,
     timeout: 10000,
-    maximumAge: 300000 // 5 minutes cache
+    maximumAge: 300000, // 5 minutes cache
   };
 
   const finalOptions = { ...defaultOptions, ...options };
 
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
-      reject(new Error('Geolocation is not supported by this browser'));
+      reject(new Error("Geolocation is not supported by this browser"));
       return;
     }
 
@@ -26,30 +26,33 @@ export const getCurrentPosition = (options = {}) => {
         resolve({
           lat: latitude,
           lng: longitude,
-          accuracy: position.coords.accuracy
+          accuracy: position.coords.accuracy,
         });
       },
       (error) => {
-        let errorMessage = 'Unable to get your location';
-        
+        let errorMessage = "Unable to get your location";
+
         switch (error.code) {
           case error.PERMISSION_DENIED:
-            errorMessage = 'Location access denied. Please enable location permissions and try again.';
+            errorMessage =
+              "Location access denied. Please enable location permissions and try again.";
             break;
           case error.POSITION_UNAVAILABLE:
-            errorMessage = 'Location information is unavailable. Please check your GPS settings.';
+            errorMessage =
+              "Location information is unavailable. Please check your GPS settings.";
             break;
           case error.TIMEOUT:
-            errorMessage = 'Location request timed out. Please try again.';
+            errorMessage = "Location request timed out. Please try again.";
             break;
           default:
-            errorMessage = 'An unknown error occurred while getting your location.';
+            errorMessage =
+              "An unknown error occurred while getting your location.";
             break;
         }
-        
+
         reject(new Error(errorMessage));
       },
-      finalOptions
+      finalOptions,
     );
   });
 };
@@ -59,7 +62,7 @@ export const getCurrentPosition = (options = {}) => {
  * @returns {boolean} - True if geolocation is supported
  */
 export const isGeolocationSupported = () => {
-  return 'geolocation' in navigator;
+  return "geolocation" in navigator;
 };
 
 /**
@@ -68,15 +71,16 @@ export const isGeolocationSupported = () => {
  */
 export const checkLocationPermission = async () => {
   if (!navigator.permissions) {
-    return 'unknown';
+    return "unknown";
   }
 
   try {
-    const permission = await navigator.permissions.query({ name: 'geolocation' });
+    const permission = await navigator.permissions.query({
+      name: "geolocation",
+    });
     return permission.state;
   } catch (error) {
-    console.warn('Could not check location permission:', error);
-    return 'unknown';
+    return "unknown";
   }
 };
 
@@ -89,14 +93,14 @@ export const checkLocationPermission = async () => {
  */
 export const watchPosition = (onSuccess, onError, options = {}) => {
   if (!navigator.geolocation) {
-    onError(new Error('Geolocation is not supported by this browser'));
+    onError(new Error("Geolocation is not supported by this browser"));
     return null;
   }
 
   const defaultOptions = {
     enableHighAccuracy: true,
     timeout: 10000,
-    maximumAge: 60000 // 1 minute cache for watch
+    maximumAge: 60000, // 1 minute cache for watch
   };
 
   const finalOptions = { ...defaultOptions, ...options };
@@ -108,30 +112,30 @@ export const watchPosition = (onSuccess, onError, options = {}) => {
         lat: latitude,
         lng: longitude,
         accuracy: position.coords.accuracy,
-        timestamp: position.timestamp
+        timestamp: position.timestamp,
       });
     },
     (error) => {
-      let errorMessage = 'Unable to watch your location';
-      
+      let errorMessage = "Unable to watch your location";
+
       switch (error.code) {
         case error.PERMISSION_DENIED:
-          errorMessage = 'Location access denied';
+          errorMessage = "Location access denied";
           break;
         case error.POSITION_UNAVAILABLE:
-          errorMessage = 'Location information is unavailable';
+          errorMessage = "Location information is unavailable";
           break;
         case error.TIMEOUT:
-          errorMessage = 'Location request timed out';
+          errorMessage = "Location request timed out";
           break;
         default:
-          errorMessage = 'An unknown error occurred while watching location';
+          errorMessage = "An unknown error occurred while watching location";
           break;
       }
-      
+
       onError(new Error(errorMessage));
     },
-    finalOptions
+    finalOptions,
   );
 };
 
@@ -155,12 +159,14 @@ export const clearWatch = (watchId) => {
  */
 export const calculateDistance = (lat1, lng1, lat2, lng2) => {
   const R = 6371; // Earth's radius in kilometers
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLng = (lng2 - lng1) * Math.PI / 180;
-  const a = 
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLng = ((lng2 - lng1) * Math.PI) / 180;
+  const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-    Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLng / 2) *
+      Math.sin(dLng / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
 };
@@ -179,8 +185,7 @@ export const getLocationName = async (lat, lng) => {
     // For demo purposes, return a generic location name
     return `Location (${lat.toFixed(4)}, ${lng.toFixed(4)})`;
   } catch (error) {
-    console.error('Error getting location name:', error);
-    return 'Current Location';
+    return "Current Location";
   }
 };
 
@@ -193,7 +198,6 @@ export const requestLocationPermission = async () => {
     const position = await getCurrentPosition({ timeout: 5000 });
     return true;
   } catch (error) {
-    console.warn('Location permission not granted:', error.message);
     return false;
   }
 };

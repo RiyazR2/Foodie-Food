@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../utils/logo.png";
+import logo from "../utils/foodieFinder_logo.png";
 import { useLocation } from "../utils/LocationContext";
 
 const Footer = () => {
@@ -61,7 +61,7 @@ const Footer = () => {
                 <span className="text-xl">💼</span>
               </a>
               <a
-                href="https://portfolior2.netlify.app/"
+                href="https://riyazr2.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-orange-400 transition-colors duration-200 flex items-center justify-center w-10 h-10 bg-gray-800 rounded-lg hover:bg-gray-700"
@@ -116,7 +116,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="https://portfolior2.netlify.app/"
+                  href="https://riyazr2.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-300 hover:text-orange-400 transition-colors duration-200 text-sm"
@@ -186,12 +186,12 @@ const Footer = () => {
               <div className="flex items-center space-x-2 text-sm text-gray-300">
                 <span className="text-orange-400">🌐</span>
                 <a
-                  href="https://portfolior2.netlify.app/"
+                  href="https://riyazr2.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-orange-400 transition-colors truncate"
                 >
-                  portfolior2.netlify.app
+                  riyazr2.vercel.app
                 </a>
               </div>
             </div>
@@ -227,7 +227,7 @@ const Footer = () => {
             <div className="text-sm text-gray-400">
               © {currentYear} FoodieFinder AI. Built by{" "}
               <a
-                href="https://portfolior2.netlify.app/"
+                href="https://riyazr2.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-orange-400 hover:text-orange-300"
@@ -254,7 +254,7 @@ const Footer = () => {
                 LinkedIn
               </a>
               <a
-                href="https://portfolior2.netlify.app/"
+                href="https://riyazr2.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-orange-400 transition-colors duration-200"

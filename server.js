@@ -1,48 +1,73 @@
-const express = require("express");
-const cors = require("cors");
+const http = require("http");
+const { URL } = require("url");
 
-const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3001;
 
-app.use(cors());
-
-const HEADERS = {
-  "Content-Type": "application/json",
-  "User-Agent":
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-  Accept: "application/json, text/plain, */*",
+const handlers = {
+  "/api/restaurants": require("./api/restaurants"),
+  "/api/menu": require("./api/menu"),
+  "/api/ai": require("./api/ai"),
 };
 
-// Proxy for restaurant list API
-app.get("/api/restaurants", async (req, res) => {
-  try {
-    const { lat, lng } = req.query;
-    const url = `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${lat}&lng=${lng}&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`;
+const server = http.createServer((req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
 
-    const response = await fetch(url, { headers: HEADERS });
-    const data = await response.json();
-    res.json(data);
-  } catch (error) {
-    console.error("Restaurant list error:", error.message);
-    res.status(500).json({ error: error.message });
+  if (req.method === "OPTIONS") {
+    res.statusCode = 204;
+    res.end();
+    return;
   }
-});
 
-// Proxy for restaurant menu API (uses /mapi/ to bypass WAF)
-app.get("/api/menu", async (req, res) => {
-  try {
-    const { lat, lng, restaurantId } = req.query;
-    const url = `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=${lat}&lng=${lng}&restaurantId=${restaurantId}&catalog_qa=undefined&submitAction=ENTER`;
+  const requestUrl = new URL(
+    req.url,
+    `http://${req.headers.host || "localhost"}`,
+  );
+  const handler = handlers[requestUrl.pathname];
 
-    const response = await fetch(url, { headers: HEADERS });
-    const data = await response.json();
-    res.json(data);
-  } catch (error) {
-    console.error("Menu error:", error.message);
-    res.status(500).json({ error: error.message });
+  if (!handler) {
+    res.statusCode = 404;
+    res.end("Not found");
+    return;
   }
+
+  const query = Object.fromEntries(requestUrl.searchParams.entries());
+  const handlerReq = { ...req, query, body: undefined };
+  const chunks = [];
+
+  req.on("data", (chunk) => chunks.push(chunk));
+  req.on("end", async () => {
+    if (chunks.length) {
+      try {
+        handlerReq.body = JSON.parse(Buffer.concat(chunks).toString());
+      } catch {
+        handlerReq.body = {};
+      }
+    }
+
+    const handlerRes = {
+      setHeader: (name, value) => res.setHeader(name, value),
+      status: (code) => {
+        res.statusCode = code;
+        return handlerRes;
+      },
+      json: (value) => {
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify(value));
+      },
+      send: (value) => res.end(value),
+    };
+
+    try {
+      await handler(handlerReq, handlerRes);
+    } catch (error) {
+      if (!res.writableEnded) {
+        res.statusCode = 500;
+        res.end("Internal server error");
+      }
+    }
+  });
 });
 
-app.listen(PORT, () => {
-  console.log(`Proxy server running on http://localhost:${PORT}`);
-});
+server.listen(PORT);

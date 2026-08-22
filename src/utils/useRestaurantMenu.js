@@ -22,23 +22,24 @@ const useRestaurantMenu = (resId) => {
       setIsLoading(true);
       setError(null);
 
-      const menuAPI = getMenuAPI(currentLocation.lat, currentLocation.lng);
-      const data = await fetch(menuAPI + resId);
+      const menuAPI = getMenuAPI(
+        currentLocation.lat,
+        currentLocation.lng,
+        resId,
+      );
+      const data = await fetch(menuAPI);
 
       if (!data.ok) {
         throw new Error(`HTTP error! status: ${data.status}`);
       }
 
       const json = await data.json();
-      // console.log("MenuAPI:", json);
-
       if (json.data) {
         setResInfo(json.data);
       } else {
-        throw new Error('No menu data found');
+        throw new Error("No menu data found");
       }
     } catch (err) {
-      console.error('Error fetching restaurant menu:', err);
       setError(err.message);
       setResInfo(null);
     } finally {

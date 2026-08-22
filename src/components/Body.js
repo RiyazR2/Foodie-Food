@@ -1,8 +1,8 @@
 import RestaurantCard, { withDiscountLabel } from "./RestaurantCard";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
-import { getSwiggyAPI } from "../utils/constants";
+import { getRestaurantsAPI } from "../utils/constants";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import { useLocation } from "../utils/LocationContext";
 import { RestaurantLoader, NoRestaurantsFound } from "./LocationLoader";
@@ -11,7 +11,6 @@ import { parseSearchQuery } from "../services/aiService";
 
 const Body = () => {
   //// local state Variable - super powerful variable
-  // console.log("Body");
   const [listOfRestaurants, setListOfRestaurant] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
   const [searchText, setSearchText] = useState(""); //Search input
@@ -24,8 +23,6 @@ const Body = () => {
   const { currentLocation } = useLocation();
 
   // Whenever state variable update, react triggers a reconciliation cycle (re-renders the component)
-  // console.log("Body Rendered\nList Of Restaurants: ", listOfRestaurants); //tempororay Commented down
-
   useEffect(() => {
     // Check cache first
     const cacheKey = `restaurants_${currentLocation.lat}_${currentLocation.lng}`;
@@ -36,7 +33,6 @@ const Body = () => {
       const restaurants = JSON.parse(cachedData);
       setListOfRestaurant(restaurants);
       setFilteredRestaurant(restaurants);
-      console.log(`Loaded ${restaurants.length} restaurants from cache`);
     } else {
       // Fetch fresh data
       fetchData();
@@ -46,16 +42,17 @@ const Body = () => {
   const fetchData = async () => {
     try {
       setIsLocationLoading(true);
-      const swiggyAPI = getSwiggyAPI(currentLocation.lat, currentLocation.lng);
-      const data = await fetch(swiggyAPI);
+      const restaurantsAPI = getRestaurantsAPI(
+        currentLocation.lat,
+        currentLocation.lng,
+      );
+      const data = await fetch(restaurantsAPI);
 
       if (!data.ok) {
         throw new Error(`HTTP error! status: ${data.status}`);
       }
 
       const json = await data.json();
-      // console.log("SwigyyAPI: ", json);
-
       // Collect restaurants from ALL cards (API structure changes frequently)
       let allRestaurants = [];
 
@@ -65,7 +62,6 @@ const Body = () => {
         if (card?.card?.card?.gridElements?.infoWithStyle?.restaurants) {
           const restaurants =
             card.card.card.gridElements.infoWithStyle.restaurants;
-          console.log(`Found ${restaurants.length} restaurants in card[${i}]`);
           allRestaurants = [...allRestaurants, ...restaurants];
         }
       }
@@ -75,8 +71,6 @@ const Body = () => {
         new Map(allRestaurants.map((r) => [r.info.id, r])).values(),
       );
 
-      console.log(`Total unique restaurants: ${uniqueRestaurants.length}`);
-
       if (uniqueRestaurants.length > 0) {
         setListOfRestaurant(uniqueRestaurants);
         setFilteredRestaurant(uniqueRestaurants);
@@ -84,14 +78,11 @@ const Body = () => {
         // Cache the data for instant load on back navigation
         const cacheKey = `restaurants_${currentLocation.lat}_${currentLocation.lng}`;
         sessionStorage.setItem(cacheKey, JSON.stringify(uniqueRestaurants));
-        console.log(`Cached ${uniqueRestaurants.length} restaurants`);
       } else {
-        console.warn("No restaurants found in API response");
         setListOfRestaurant([]);
         setFilteredRestaurant([]);
       }
     } catch (error) {
-      console.error("Error fetching restaurant data:", error);
       setListOfRestaurant([]);
       setFilteredRestaurant([]);
     } finally {
@@ -113,7 +104,6 @@ const Body = () => {
       (res) => res?.info?.avgRating > 4.4,
     );
 
-    // console.log(filteredList);
     setFilteredRestaurant(filteredList);
   };
 
@@ -127,8 +117,6 @@ const Body = () => {
       // Parse query using AI
       const filters = await parseSearchQuery(searchText);
       setAiFilters(filters);
-      console.log("AI Parsed Filters:", filters);
-
       // Apply filters to restaurant list
       let filtered = [...listOfRestaurants];
 
@@ -139,7 +127,6 @@ const Body = () => {
 
       // If no filters parsed, fallback to normal search
       if (activeFilterCount === 0) {
-        console.log("No AI filters detected, using normal search");
         handleNormalSearch();
         return;
       }
@@ -151,7 +138,6 @@ const Body = () => {
             cuisine.toLowerCase().includes(filters.cuisine.toLowerCase()),
           ),
         );
-        console.log(`After cuisine filter: ${filtered.length} restaurants`);
       }
 
       // Filter by rating (only if results exist OR it's the only filter)
@@ -163,7 +149,6 @@ const Body = () => {
         if (ratingFiltered.length > 0 || !filters.cuisine) {
           filtered = ratingFiltered;
         }
-        console.log(`After rating filter: ${filtered.length} restaurants`);
       }
 
       // Filter by maxPrice (exact number like "under 600")
@@ -177,13 +162,7 @@ const Body = () => {
         if (priceFiltered.length > 0) {
           filtered = priceFiltered;
         } else {
-          console.warn(
-            `No restaurants under ₹${filters.maxPrice}. Showing all ${filters.cuisine || "restaurants"}.`,
-          );
         }
-        console.log(
-          `After maxPrice filter: ${filtered.length} restaurants (max: ₹${filters.maxPrice})`,
-        );
       }
 
       // Filter by price range (budget/mid-range/premium)
@@ -203,9 +182,6 @@ const Body = () => {
         if (priceFiltered.length > 0) {
           filtered = priceFiltered;
         }
-        console.log(
-          `After priceRange filter: ${filtered.length} restaurants (${filters.priceRange}: max ₹${maxPrice})`,
-        );
       }
 
       // Filter by delivery time (relaxed)
@@ -237,18 +213,8 @@ const Body = () => {
       }
 
       setFilteredRestaurant(filtered);
-      console.log(
-        `✅ AI Search Complete: Found ${filtered.length} restaurants`,
-      );
-
       // If no results, show helpful message
-      if (filtered.length === 0) {
-        console.warn(
-          "No restaurants match ALL filters. Try simplifying your query.",
-        );
-      }
     } catch (error) {
-      console.error("AI Search Error:", error);
       // Fallback to normal search
       handleNormalSearch();
     } finally {
@@ -282,8 +248,6 @@ const Body = () => {
       handleNormalSearch();
     }
   };
-
-  // const { loggedInUser, setUserName } = useContext(UserContext);
 
   // Show loading state if restaurants are being fetched
   if (listOfRestaurants.length === 0 || isLocationLoading) {

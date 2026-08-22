@@ -8,7 +8,6 @@ const Login = () => {
   // Your login logic here
   const handleLogin = (e) => {
     e.preventDefault();
-    // console.log("Logging in with:", username, password);
   };
 
   return (
