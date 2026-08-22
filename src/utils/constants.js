@@ -12,6 +12,7 @@ const API_ORIGIN = isLocalFrontend ? "http://localhost:3001" : "";
 
 export const RESTAURANTS_ENDPOINT = `${API_ORIGIN}/api/restaurants`;
 export const MENU_ENDPOINT = `${API_ORIGIN}/api/menu`;
+export const AI_ENDPOINT = `${API_ORIGIN}/api/ai`;
 
 // Dynamic API URL generators
 export const getRestaurantsAPI = (lat, lng) => {

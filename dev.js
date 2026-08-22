@@ -2,7 +2,13 @@ const path = require("path");
 const { spawn } = require("child_process");
 
 const children = [];
-const parcelCli = path.join(__dirname, "node_modules", "parcel", "lib", "bin.js");
+const parcelCli = path.join(
+  __dirname,
+  "node_modules",
+  "parcel",
+  "lib",
+  "bin.js",
+);
 
 function start(command, args) {
   const child = spawn(command, args, {
@@ -13,7 +19,10 @@ function start(command, args) {
   children.push(child);
 }
 
-start(process.execPath, [path.join(__dirname, "server.js")]);
+start(process.execPath, [
+  "--env-file-if-exists=.env",
+  path.join(__dirname, "server.js"),
+]);
 start(process.execPath, [parcelCli, "index.html"]);
 
 function stopChildren() {

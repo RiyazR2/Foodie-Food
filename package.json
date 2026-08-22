@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "start": "node dev.js",
-    "dev-server": "node server.js",
+    "dev-server": "node --env-file-if-exists=.env server.js",
     "build": "parcel build index.html --public-url /",
     "test": "jest",
     "watch-test": "jest --watch"

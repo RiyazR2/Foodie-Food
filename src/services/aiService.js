@@ -1,6 +1,6 @@
 // AI calls go through the /api/ai serverless function so the API key
 // stays on the server and never reaches the browser bundle.
-const AI_ENDPOINT = "/api/ai";
+import { AI_ENDPOINT } from "../utils/constants";
 
 const requestAI = async (task, payload) => {
   const response = await fetch(AI_ENDPOINT, {
