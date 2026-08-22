@@ -36,3 +36,5 @@ READMEEEE.md
 *.bat
 push_to_github.bat
 fix_git_and_push.bat
+
+.vercel
